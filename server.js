@@ -67,4 +67,32 @@ app.post('/api/login', async (req, res) => {
     res.json({ message: 'Login successful!' });
 });
 
+const multer = require('multer');
+const path = require('path');
+
+// Set storage location and filename
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Save files to 'uploads' folder
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+const upload = multer({ storage: storage });
+
+// Create 'uploads' folder if it doesn't exist
+const fs = require('fs');
+if (!fs.existsSync('uploads')) {
+    fs.mkdirSync('uploads');
+}
+
+// File upload endpoint
+app.post('/api/upload', upload.single('file'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ message: 'No file uploaded!' });
+    }
+    res.json({ message: 'File uploaded successfully!', filename: req.file.filename });
+});
+
 app.listen(3000, () => console.log('Server running on http://localhost:3000'));
