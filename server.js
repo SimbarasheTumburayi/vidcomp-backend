@@ -27,8 +27,6 @@ const app = express(); // <-- Move this line up!
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Handle preflight OPTIONS requests for all /api/* routes
-app.options('/api/*', cors(corsOptions));
 
 // ...rest of your code...
 
