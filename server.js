@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB (local)
-mongoose.connect('mongodb://localhost:27017/vidcomp', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI);
 
 // User schema
 const User = mongoose.model('User', new mongoose.Schema({
