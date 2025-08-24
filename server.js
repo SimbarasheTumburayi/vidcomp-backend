@@ -1,16 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+
+const app = express(); // <-- Move this up!
+
 app.use(cors({
     origin: 'https://from-sjay-to-rumbi.netlify.app'
 }));
-
-const app = express();
-app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB (local)
+// Connect to MongoDB (Atlas)
 mongoose.connect(process.env.MONGODB_URI);
+
+// ...existing code...
 
 // User schema
 const User = mongoose.model('User', new mongoose.Schema({
