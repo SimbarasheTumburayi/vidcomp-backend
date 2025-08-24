@@ -1,3 +1,7 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+
 const allowedOrigins = [
     'https://from-sjay-to-rumbi.netlify.app',
     'https://sjay-to-rumbie.netlify.app',
@@ -6,9 +10,7 @@ const allowedOrigins = [
 
 const corsOptions = {
     origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps, curl requests)
         if (!origin) return callback(null, true);
-        
         if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
@@ -19,9 +21,16 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 };
-app.use(cors(corsOptions));
 
+const app = express(); // <-- Move this line up!
+
+app.use(cors(corsOptions));
 app.use(express.json());
+
+// Handle preflight OPTIONS requests for all /api/* routes
+app.options('/api/*', cors(corsOptions));
+
+// ...rest of your code...
 
 // ...your routes and MongoDB connection...
 
