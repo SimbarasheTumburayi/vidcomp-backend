@@ -1,13 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
-
-const app = express(); // <-- Move this up!
-
-app.use(cors({
-    origin: 'https://from-sjay-to-rumbi.netlify.app'
-}));
-app.use(express.json());
+const corsOptions = {
+    origin: 'https://from-sjay-to-rumbi.netlify.app',
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type'],
+    credentials: true
+};
+app.use(cors(corsOptions));
 
 // Connect to MongoDB (Atlas)
 mongoose.connect(process.env.MONGODB_URI);
