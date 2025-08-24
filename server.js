@@ -5,6 +5,7 @@ const cors = require('cors');
 const allowedOrigins = [
     'https://from-sjay-to-rumbi.netlify.app',
     'https://sjay-to-rumbie.netlify.app',
+    'https://sjay.netlify.app', // <-- Add this line
     'http://localhost:3000' // for local development
 ];
 
