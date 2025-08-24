@@ -10,8 +10,7 @@ const corsOptions = {
     allowedHeaders: ['Content-Type'],
     credentials: true
 };
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // <-- Add this line
+app.use(cors(corsOptions)); // <-- Add this line
 
 app.use(express.json());
 
