@@ -1,16 +1,25 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-
-const app = express();
+const allowedOrigins = [
+    'https://from-sjay-to-rumbi.netlify.app',
+    'https://sjay-to-rumbie.netlify.app',
+    'http://localhost:3000' // for local development
+];
 
 const corsOptions = {
-    origin: 'https://from-sjay-to-rumbi.netlify.app',
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type'],
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps, curl requests)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 };
-app.use(cors(corsOptions)); // <-- Add this line
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
