@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+app.use(cors({
+    origin: 'https://from-sjay-to-rumbi.netlify.app'
+}));
 
 const app = express();
 app.use(cors());
